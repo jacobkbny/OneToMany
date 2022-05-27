@@ -32,7 +32,7 @@ public interface BoardService {
 		default BoardDTO entityToDTO(Board board, Member member , Long replyCount) {
 				BoardDTO dto = BoardDTO.builder().bno(board.getBno())
 								.title(board.getTitle())
-								.content(board.getTitle())
+								.content(board.getContent())
 								.regdate(board.getRegdate())
 								.moddate(board.getModdate())
 								.memberEmail(member.getEmail())

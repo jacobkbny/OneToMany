@@ -60,5 +60,7 @@ public class ServiceTest {
 			BoardDTO dto = BoardDTO.builder().bno(bno).title("제목 수정했음").content("내용도 수정").build();
 				boardService.modifyBoard(dto);
 	}
+	
+	
 	}
 

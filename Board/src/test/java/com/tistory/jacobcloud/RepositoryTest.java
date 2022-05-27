@@ -1,5 +1,7 @@
 package com.tistory.jacobcloud;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +24,11 @@ import com.tistory.jacobcloud.model.Reply;
 import com.tistory.jacobcloud.persistence.BoardRepository;
 import com.tistory.jacobcloud.persistence.MemberRepository;
 import com.tistory.jacobcloud.persistence.ReplyRepository;
+import com.tistory.jacobcloud.persistence.SearchBoardRepository;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 @SpringBootTest
 public class RepositoryTest {
 
@@ -113,12 +119,29 @@ public class RepositoryTest {
 						System.out.println(Arrays.toString(ar));
 				});
 		}
-		@Test
+//		@Test
 		public void testByBno() {
 			Object result = boardRepository.getBoardByBno(100L);
 				Object[] ar = (Object[])result;
 					System.out.println(Arrays.toString(ar));
 			
+		}
+		
+//		@Test
+		public void testSearch() {
+			boardRepository.search();
+				
+				
+				
+			
+		}
+			@Autowired
+			private SearchBoardRepository searchBoardRepository;
+		@Test
+		public void testSearchPage() {
+			Pageable pageable = PageRequest.of(0, 10, Sort.by("bno").descending().and(Sort.by("title").ascending()));
+			Page<Object[]> result = searchBoardRepository.searchPage("t", "1", pageable);
+				log.info("테스트 서치 페이지"+result);
 		}
 		
 }
