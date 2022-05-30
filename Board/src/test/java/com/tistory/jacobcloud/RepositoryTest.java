@@ -135,13 +135,19 @@ public class RepositoryTest {
 				
 			
 		}
-			@Autowired
-			private SearchBoardRepository searchBoardRepository;
+//			@Autowired
+//			private SearchBoardRepository searchBoardRepository;
+////		@Test
+//		public void testSearchPage() {
+//			Pageable pageable = PageRequest.of(0, 10, Sort.by("bno").descending().and(Sort.by("title").ascending()));
+//			Page<Object[]> result = searchBoardRepository.searchPage("t", "1", pageable);
+//				log.info("테스트 서치 페이지"+result);
+//		}
+		
 		@Test
-		public void testSearchPage() {
-			Pageable pageable = PageRequest.of(0, 10, Sort.by("bno").descending().and(Sort.by("title").ascending()));
-			Page<Object[]> result = searchBoardRepository.searchPage("t", "1", pageable);
-				log.info("테스트 서치 페이지"+result);
+		public void testListByBoard(){
+			List<Reply> replyList = replyRepository.getRepliesByBoardOrderByRno(Board.builder().bno(30L).build());
+				System.out.println(replyList);
 		}
 		
 }

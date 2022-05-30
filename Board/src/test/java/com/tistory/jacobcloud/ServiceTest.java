@@ -1,5 +1,7 @@
 package com.tistory.jacobcloud;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.Test;
@@ -10,8 +12,11 @@ import org.springframework.data.jpa.repository.Modifying;
 import com.tistory.jacobcloud.dto.BoardDTO;
 import com.tistory.jacobcloud.dto.PageRequestDTO;
 import com.tistory.jacobcloud.dto.PageResultDTO;
+import com.tistory.jacobcloud.dto.ReplyDTO;
+import com.tistory.jacobcloud.model.Reply;
 import com.tistory.jacobcloud.persistence.ReplyRepository;
 import com.tistory.jacobcloud.service.BoardService;
+import com.tistory.jacobcloud.service.ReplyService;
 
 @SpringBootTest
 public class ServiceTest {
@@ -54,13 +59,21 @@ public class ServiceTest {
 	}
 	@Transactional
 	@Modifying
-	@Test
+//	@Test
 	public void testModifyBoard() {
 		Long bno = 10L;
 			BoardDTO dto = BoardDTO.builder().bno(bno).title("제목 수정했음").content("내용도 수정").build();
 				boardService.modifyBoard(dto);
 	}
 	
+	@Autowired
+	private ReplyService replyService;
+	@Test
+	public void testReplyRegister() {
+			Long bno = 30L;
+			List<ReplyDTO> replyDTOList = replyService.getList(bno);
+			replyDTOList.forEach(replyDTO -> System.out.println(replyDTO));
+	}
 	
 	}
 
